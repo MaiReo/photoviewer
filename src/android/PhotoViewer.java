@@ -83,7 +83,7 @@ public class PhotoViewer extends CordovaPlugin {
         this.callbackContext.success("");
     }
 	protected void launchMultiActivity() throws JSONException {
-        Intent i = new Intent(this.cordova.getActivity(), com.sarriaroman.PhotoViewer.PhotoMultiActivity.class);
+        Intent i = new Intent(this.cordova.getActivity(), com.sarriaroman.PhotoViewer.PhotoMultipleActivity.class);
 
         i.putExtra("title", this.args.getString(1));
         i.putExtra("options", this.args.optJSONObject(2).toString());
