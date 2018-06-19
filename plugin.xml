@@ -15,6 +15,7 @@
 
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity android:name="com.sarriaroman.PhotoViewer.PhotoActivity" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+			<activity android:name="com.sarriaroman.PhotoViewer.PhotoMultipleActivity" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         </config-file>
 
 		<config-file parent="/manifest" target="AndroidManifest.xml">
