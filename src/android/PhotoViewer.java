@@ -48,6 +48,23 @@ public class PhotoViewer extends CordovaPlugin {
             }
             return true;
         }
+		if (action.equals("showMultiple")) {
+            this.args = args;
+            this.callbackContext = callbackContext;
+
+            boolean requiresExternalPermission = true;
+            try {
+                JSONObject options = this.args.optJSONObject(2);
+                requiresExternalPermission = options.getBoolean("share");
+            } catch(JSONException exception) { }
+
+            if (!requiresExternalPermission || (cordova.hasPermission(READ) && cordova.hasPermission(WRITE))) {
+                this.launchMultiActivity();
+            } else {
+                this.getPermission();
+            }
+            return true;
+        }
         return false;
     }
 
@@ -65,7 +82,17 @@ public class PhotoViewer extends CordovaPlugin {
         this.cordova.getActivity().startActivity(i);
         this.callbackContext.success("");
     }
+	protected void launchMultiActivity() throws JSONException {
+        Intent i = new Intent(this.cordova.getActivity(), com.sarriaroman.PhotoViewer.PhotoMultiActivity.class);
 
+        i.putExtra("title", this.args.getString(1));
+        i.putExtra("options", this.args.optJSONObject(2).toString());
+
+        this.cordova.getActivity().startActivity(i);
+        this.callbackContext.success("");
+    }
+	
+	
     @Override
     public void onRequestPermissionResult(int requestCode, String[] permissions,
                                           int[] grantResults) throws JSONException {

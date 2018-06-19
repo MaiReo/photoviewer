@@ -82,12 +82,12 @@ public class PhotoMultipleActivity extends Activity {
     private void findViews() {
         view_pager = (ViewPager) findViewById(getApplication().getResources().getIdentifier("view_pager", "id", getApplication().getPackageName()));
         if (jsonArray != null && jsonArray.length() > 0) {
-            mCustomPagerAdapter = new CustomPagerAdapter(PhotoMultipleActivity.this);
+            mCustomPagerAdapter = new CustomPagerAdapter(PhotoMultipleActivity.this,getApplication().getResources().getIdentifier("activity_multiple_photo", "layout", getApplication().getPackageName()));
             view_pager.setAdapter(mCustomPagerAdapter);
             view_pager.setCurrentItem(current_position);
         }
     }
-
+	
     /**
      * Get the current Activity
      *
@@ -145,9 +145,10 @@ public class PhotoMultipleActivity extends Activity {
 
         Context mContext;
         LayoutInflater mLayoutInflater;
-
-        public CustomPagerAdapter(Context context) {
+        int activityPhotoId;
+        public CustomPagerAdapter(Context context, int activityPhotoId) {
             mContext = context;
+			activityPhotoId = activityPhotoId;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
@@ -168,7 +169,9 @@ public class PhotoMultipleActivity extends Activity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            View itemView = mLayoutInflater.inflate(R.layout.activity_photo, container, false);
+            View itemView = mLayoutInflater.inflate(
+			activityPhotoId, //R.layout.activity_photo			
+			container, false);
             findViews(itemView);
             Log.e("PhotoMulitple", "instantiateItem----");
             try {
